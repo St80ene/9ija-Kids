@@ -2,5 +2,4 @@
 
 ### Technology used
 - Reactjs
-- Sass
 - Javascript
