@@ -23,7 +23,7 @@ export default function Card(props) {
 				onChange={props.onSearch}
 			/>
 
-			{listItems.length ? listItems : <p>No keyword like that</p>}
+			{listItems.length ? listItems : <p>No keyword as such....check again!!</p>}
 		</div>
 	);
 }
