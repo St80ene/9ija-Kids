@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import Card from './Components/Card';
+// import axios from 'axios';
 
-let games = [
+let gameList = [
 	{
 		GameTitle: 'Before and After',
 		GameDescription: 'Before and After Yr 2 (prefix and suffix)',
@@ -10,8 +11,6 @@ let games = [
 		Group: 'Academic',
 		Level: 'Key Stage 1',
 		Subject: 'English',
-		GameImage:
-			'https://partners.9ijakids.com/index.php/thumbnail?game=Before and After',
 	},
 	{
 		GameTitle: 'Communication',
@@ -20,8 +19,6 @@ let games = [
 		Group: 'Academic',
 		Level: 'Key Stage 1',
 		Subject: 'Social Studies',
-		GameImage:
-			'https://partners.9ijakids.com/index.php/thumbnail?game=Communication',
 	},
 	{
 		GameTitle: 'Kiddiepreneur 101',
@@ -30,8 +27,6 @@ let games = [
 		Group: 'Financial Literacy',
 		Level: 'Financial Literacy',
 		Subject: 'Financial Literacy',
-		GameImage:
-			'https://partners.9ijakids.com/index.php/thumbnail?game=Kiddiepreneur 101',
 	},
 	{
 		GameTitle: 'Money Matters',
@@ -40,8 +35,6 @@ let games = [
 		Group: 'Financial Literacy',
 		Level: 'Financial Literacy',
 		Subject: 'Financial Literacy',
-		GameImage:
-			'https://partners.9ijakids.com/index.php/thumbnail?game=Money Matters',
 	},
 	{
 		GameTitle: 'Maths Pop',
@@ -51,8 +44,6 @@ let games = [
 		Group: 'Academic',
 		Level: 'Key Stage 1',
 		Subject: 'Mathematics',
-		GameImage:
-			'https://partners.9ijakids.com/index.php/thumbnail?game=Maths Pop',
 	},
 	{
 		GameTitle: 'Exploring Life',
@@ -61,8 +52,6 @@ let games = [
 		Group: 'Academic',
 		Level: 'Key Stage 1',
 		Subject: 'Science',
-		GameImage:
-			'https://partners.9ijakids.com/index.php/thumbnail?game=Exploring Life',
 	},
 	{
 		GameTitle: 'Mathsmania City - Decimals',
@@ -71,23 +60,37 @@ let games = [
 		Group: 'Academic',
 		Level: 'Key Stage 2',
 		Subject: 'Mathematics',
-		GameImage:
-			'https://partners.9ijakids.com/index.php/thumbnail?game=Mathsmania City - Decimals',
 	},
 ];
 
 
+
+
 export default function App() {
-	const [isGames, setGames] = useState({
-		fetchedGames: games,
-		filteredGames: '',
-	});
+	const [games, setGames] = useState(gameList);
+	const [matchedGames, setMatchedGames] = useState(games);
+	const [searchTerm, setSearchTerm] = useState('');
+
+	const searchHandler = (e) => {
+		const term = e.target.value;
+		if (!term.trim().length) {
+			setMatchedGames(games);
+			return;
+		}
+
+		const gamesSearch = games.filter((game) => {
+			return game.GameTitle.toLowerCase().includes(e.target.value.toLowerCase())
+		});
+		// setSearchTerm({ searchTerm: gamesSearch });
+		setMatchedGames(gamesSearch);
+	}
 	
 	return (
 		<div className="App">
 			<h1>9ija Kids Games</h1>
-			<input type="search" name="" id="" placeholder="Type to search" />
-			<Card games={games} />
+			{/* {games.filter(game => {})} */}
+			<Card games={matchedGames} term={searchTerm} onSearch={searchHandler} />
 		</div>
 	);
 }
+
