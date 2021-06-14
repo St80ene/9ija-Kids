@@ -3,3 +3,4 @@
 ### Technology used
 - Reactjs
 - Javascript
+- CSS
